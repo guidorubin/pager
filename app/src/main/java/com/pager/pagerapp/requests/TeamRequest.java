@@ -10,12 +10,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TeamRequest {
+public class TeamRequest implements Executable {
 
     private TeamRequestCallback teamRequestCallback;
 
      public TeamRequest(final TeamRequestCallback teamRequestCallback) {
+        this.teamRequestCallback = teamRequestCallback;
+    }
 
+    @Override
+    public void execute() {
         PagerService service = RetrofitInstance.getRetrofitInstance().create(PagerService.class);
 
         Call<List<Member>> call = service.listMembers();
@@ -30,7 +34,7 @@ public class TeamRequest {
                 teamRequestCallback.onTeamRequest(null);
             }
         });
-    }
 
+    }
 }
 

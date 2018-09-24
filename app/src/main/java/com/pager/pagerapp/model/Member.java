@@ -17,7 +17,7 @@ public class Member {
     private String github;
     @SerializedName("role")
     @Expose
-    private Integer role;
+    private Integer roleId;
     @SerializedName("gender")
     @Expose
     private String gender;
@@ -30,6 +30,8 @@ public class Member {
     @SerializedName("location")
     @Expose
     private String location;
+
+    private String roleName;
 
     public String getName() {
         return name;
@@ -55,12 +57,12 @@ public class Member {
         this.github = github;
     }
 
-    public Integer getRole() {
-        return role;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRole(Integer role) {
-        this.role = role;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
     public String getGender() {
@@ -95,4 +97,11 @@ public class Member {
         this.location = location;
     }
 
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 }

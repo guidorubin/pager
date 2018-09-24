@@ -114,7 +114,7 @@ public class ListTeamAdapter extends RecyclerView.Adapter<ListTeamAdapter.ItemVi
         public void bind(final Member item, final OnItemClickListener listener) {
             txtName.setText(item.getName());
             txtNickname.setText(item.getGithub());
-            txtPosition.setText(item.getGithub());
+            txtPosition.setText(item.getRoleName());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

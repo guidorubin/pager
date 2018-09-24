@@ -10,20 +10,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.pager.pagerapp.adapters.ListTeamAdapter;
+import com.pager.pagerapp.bo.RolesBO;
+import com.pager.pagerapp.bo.TeamBO;
 import com.pager.pagerapp.model.Member;
-import com.pager.pagerapp.requests.TeamRequest;
-import com.pager.pagerapp.requests.TeamRequestCallback;
 
 import java.util.List;
+import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements TeamRequestCallback, ListTeamAdapter.OnItemClickListener {
-
-    //Hacer diccionario para los puestos...
+public class MainActivity extends AppCompatActivity implements ListTeamAdapter.OnItemClickListener, TeamBO.Callback {
 
     private RecyclerView recyclerView;
     private ListTeamAdapter adapter;
     private SearchView searchView;
     private MenuItem searchItem;
+    private TeamBO teamBO;
 
 
     @Override
@@ -39,21 +39,11 @@ public class MainActivity extends AppCompatActivity implements TeamRequestCallba
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        TeamRequest teamRequest = new TeamRequest(this);
-
-    }
-
-    @Override
-    public void onTeamRequest(List<Member> team) {
-        if (team!=null) {
-
-            loadTeamList(team);
-            System.out.println(team.size());
-        }
+        teamBO = new TeamBO(this);
+        teamBO.listTeam();
     }
 
     private void loadTeamList(List<Member> team) {
-
 
         adapter = new ListTeamAdapter(this, team, this);
         recyclerView.setAdapter(adapter);
@@ -120,4 +110,10 @@ public class MainActivity extends AppCompatActivity implements TeamRequestCallba
             super.onBackPressed();
         }
     }
+
+    @Override
+    public void listTeam(List<Member> team) {
+        loadTeamList(team);
+    }
+
 }
