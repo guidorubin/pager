@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements ListTeamAdapter.O
     }
 
     private void loadTeamList(List<Member> team) {
-        hideProgressBar();
         adapter.setDataList(team);
 
     }
@@ -71,7 +70,10 @@ public class MainActivity extends AppCompatActivity implements ListTeamAdapter.O
     public void onItemClick(Member member) {
 
         Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-        member.setRoleName(roles.get("" + member.getRoleId()));
+        if(roles!=null) {
+            member.setRoleName(roles.get("" + member.getRoleId()));
+        }
+
         intent.putExtra("member", Parcels.wrap(member));
         startActivity(intent);
     }
@@ -170,7 +172,11 @@ public class MainActivity extends AppCompatActivity implements ListTeamAdapter.O
 
     @Override
     public void listTeam(List<Member> team) {
-        loadTeamList(team);
+        hideProgressBar();
+        if (team!=null) {
+            loadTeamList(team);
+        }
+
     }
 
     @Override

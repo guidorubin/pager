@@ -58,7 +58,9 @@ public class ListTeamAdapter extends RecyclerView.Adapter<ListTeamAdapter.ItemVi
 
     public void addMember(Member newMember) {
         dataList.add(newMember);
+        dataListFiltered = dataList;
         notifyItemChanged(dataList.size()-1);
+
     }
 
     public interface OnItemClickListener {
@@ -75,7 +77,10 @@ public class ListTeamAdapter extends RecyclerView.Adapter<ListTeamAdapter.ItemVi
     public void setDataList(List<Member> dataList) {
         this.dataList = dataList;
         this.dataListFiltered = dataList;
-        notifyDataSetChanged();
+        if(dataList!=null && dataList.size()>0) {
+            notifyDataSetChanged();
+        }
+
     }
 
     @Override
