@@ -2,4 +2,7 @@
     <string name="app_name">PagerApp</string>
 
     <string name="status">Status</string>
+    <string name="language">Language</string>
+    <string name="skills">Skills</string>
+    <string name="location">Location</string>
 </resources>
