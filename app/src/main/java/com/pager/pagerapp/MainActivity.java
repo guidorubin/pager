@@ -1,5 +1,6 @@
 package com.pager.pagerapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -23,6 +24,8 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements ListTeamAdapter.OnItemClickListener, TeamBO.Callback, SocketBO.Callback, RolesBO.Callback {
 
+    private ProgressDialog progressBar;
+
     private RecyclerView recyclerView;
     private ListTeamAdapter adapter;
     private SearchView searchView;
@@ -36,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements ListTeamAdapter.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        showProgressBar();
         init();
     }
 
@@ -59,7 +62,9 @@ public class MainActivity extends AppCompatActivity implements ListTeamAdapter.O
     }
 
     private void loadTeamList(List<Member> team) {
+        hideProgressBar();
         adapter.setDataList(team);
+
     }
 
     @Override
@@ -172,5 +177,15 @@ public class MainActivity extends AppCompatActivity implements ListTeamAdapter.O
     public void getRoles(Map<String, String> roles) {
         this.roles = roles;
         adapter.updateRoles(roles);
+    }
+
+    public void showProgressBar() {
+        progressBar = ProgressDialog.show(this, "", getString(R.string.loading));
+    }
+
+    public void hideProgressBar() {
+        if (progressBar!=null && progressBar.isShowing()) {
+            progressBar.hide();
+        }
     }
 }

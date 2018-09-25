@@ -173,7 +173,9 @@ public class ListTeamAdapter extends RecyclerView.Adapter<ListTeamAdapter.ItemVi
                     listener.onItemClick(item);
                 }
             });
-            Picasso.with(ctx).load(item.getAvatar()).into(imageView);
+            Picasso.with(ctx).load(item.getAvatar())
+                    .placeholder(R.drawable.progress)
+                    .into(imageView);
             setRoundedCorner(imageView);
 
 
