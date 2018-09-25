@@ -8,6 +8,7 @@
     android:padding="5dp">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/titleCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="6dp"
@@ -63,7 +64,7 @@
                 android:background="@android:color/darker_gray" />
 
             <TextView
-                android:id="@+id/statusTxt"
+                android:id="@+id/txtStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/status"
@@ -74,12 +75,13 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
+        android:id="@+id/cardDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="6dp"
         card_view:cardElevation="3dp"
         card_view:cardUseCompatPadding="true"
-        card_view:cardBackgroundColor="@android:color/darker_gray"
+        card_view:cardBackgroundColor="@color/primaryDarkColor"
         android:visibility="gone">
 
         <android.support.constraint.ConstraintLayout
@@ -93,13 +95,15 @@
                 android:id="@+id/locationTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/detailTitle"
                 android:text="@string/location" />
 
             <TextView
-                android:id="@+id/loactionTxt"
+                android:id="@+id/locationTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
+                style="@style/detailText"
                 card_view:layout_constraintStart_toStartOf="@+id/guideline3" />
 
             <android.support.constraint.Guideline
@@ -115,6 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/language"
+                style="@style/detailTitle"
                 card_view:layout_constraintTop_toBottomOf="@+id/locationTitle" />
 
             <TextView
@@ -123,8 +128,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="8dp"
+                style="@style/detailText"
                 card_view:layout_constraintStart_toStartOf="@+id/guideline3"
-                card_view:layout_constraintTop_toBottomOf="@+id/textView2" />
+                card_view:layout_constraintTop_toBottomOf="@+id/locationTxt" />
 
 
             <TextView
@@ -133,6 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/skills"
+                style="@style/detailTitle"
                 card_view:layout_constraintTop_toBottomOf="@+id/languageTitle" />
 
             <TextView
@@ -141,8 +148,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="8dp"
+                style="@style/detailText"
                 card_view:layout_constraintStart_toStartOf="@+id/guideline3"
-                card_view:layout_constraintTop_toBottomOf="@+id/textView3" />
+                card_view:layout_constraintTop_toBottomOf="@+id/languageTxt" />
 
 
         </android.support.constraint.ConstraintLayout>

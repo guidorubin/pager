@@ -2,6 +2,8 @@ package com.pager.pagerapp.adapters;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.opengl.Visibility;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,25 +19,63 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ListTeamAdapter extends RecyclerView.Adapter<ListTeamAdapter.ItemViewHolder> implements Filterable {
 
 
     private final Context ctx;
     private final OnItemClickListener listener;
-    private List<Member> dataList;
-    private List<Member> dataListFiltered;
+    private Map<String, String> roles;
+    private List<Member> dataList = new ArrayList<Member>();
+    private List<Member> dataListFiltered = new ArrayList<Member>();
+
+    public void updateStatus(String status, String memberStr) {
+
+        if(dataList!=null) {
+            for (int i = 0; i < dataList.size(); i++) {
+                Member member = dataList.get(i);
+                if(member.getGithub().equalsIgnoreCase(memberStr)) {
+                    member.setStatus(status);
+                    notifyItemChanged(i);
+                    break;
+                }
+            }
+
+            for (int i = 0; i < dataListFiltered.size(); i++) {
+                Member member = dataListFiltered.get(i);
+                if(member.getGithub().equalsIgnoreCase(memberStr)) {
+                    member.setStatus(status);
+                    notifyItemChanged(i);
+                    break;
+                }
+            }
+
+        }
+
+
+    }
+
+    public void addMember(Member newMember) {
+        dataList.add(newMember);
+        notifyItemChanged(dataList.size()-1);
+    }
 
     public interface OnItemClickListener {
         void onItemClick(Member member);
     }
 
-    public ListTeamAdapter(Context context, List<Member> dataList, OnItemClickListener listener) {
+    public ListTeamAdapter(Context context,OnItemClickListener listener) {
         this.ctx = context;
+//        this.dataList = dataList;
+//        this.dataListFiltered = dataList;
+        this.listener = listener;
+    }
+
+    public void setDataList(List<Member> dataList) {
         this.dataList = dataList;
         this.dataListFiltered = dataList;
-        this.listener = listener;
-
+        notifyDataSetChanged();
     }
 
     @Override
@@ -47,9 +87,7 @@ public class ListTeamAdapter extends RecyclerView.Adapter<ListTeamAdapter.ItemVi
 
     @Override
     public void onBindViewHolder(ListTeamAdapter.ItemViewHolder holder, int position) {
-        holder.bind(dataListFiltered.get(position), listener);
-//        holder.txtEmpEmail.setText(dataList.get(position).getEmail());
-//        holder.txtEmpPhone.setText(dataList.get(position).getPhone());
+        holder.bind(dataListFiltered.get(position), roles, listener);
     }
 
     @Override
@@ -69,8 +107,6 @@ public class ListTeamAdapter extends RecyclerView.Adapter<ListTeamAdapter.ItemVi
                     ArrayList<Member> filteredList = new ArrayList<>();
                     for (Member row : dataList) {
 
-                        // name match condition. this might differ depending on your requirement
-                        // here we are looking for name or phone number match
                         if (row.getName().toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(row);
                         }
@@ -99,6 +135,12 @@ public class ListTeamAdapter extends RecyclerView.Adapter<ListTeamAdapter.ItemVi
         TextView txtName;
         TextView txtPosition;
         TextView txtNickname;
+        TextView txtStatus;
+
+        TextView txtLanguage;
+        TextView txtSkills;
+        TextView txtLocation;
+
         ImageView imageView;
 
         ItemViewHolder(Context context, View itemView) {
@@ -107,14 +149,23 @@ public class ListTeamAdapter extends RecyclerView.Adapter<ListTeamAdapter.ItemVi
             txtName = (TextView) itemView.findViewById(R.id.txtName);
             txtPosition = (TextView) itemView.findViewById(R.id.txtPosition);
             txtNickname = (TextView) itemView.findViewById(R.id.txtNickname);
+            txtStatus = (TextView) itemView.findViewById(R.id.txtStatus);
             imageView = (ImageView)itemView.findViewById(R.id.imageView);
+
 
         }
 
-        public void bind(final Member item, final OnItemClickListener listener) {
+        public void bind(final Member item, final Map<String, String> roles, final OnItemClickListener listener) {
             txtName.setText(item.getName());
             txtNickname.setText(item.getGithub());
-            txtPosition.setText(item.getRoleName());
+            if(roles!=null) {
+                txtPosition.setText(roles.get("" + item.getRoleId()));
+            }
+
+            if(item.getStatus()!= null) {
+                txtStatus.setText(item.getStatus());
+            }
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -133,4 +184,12 @@ public class ListTeamAdapter extends RecyclerView.Adapter<ListTeamAdapter.ItemVi
             imageView.setClipToOutline(true);
         }
     }
+
+    public void updateRoles(Map<String, String> roles){
+        this.roles = roles;
+        if(dataList !=null && dataList.size()>0) {
+            notifyDataSetChanged();
+        }
+    }
+
 }

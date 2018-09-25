@@ -4,6 +4,9 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Member {
 
     @SerializedName("name")
@@ -32,6 +35,7 @@ public class Member {
     private String location;
 
     private String roleName;
+    private String status;
 
     public String getName() {
         return name;
@@ -103,5 +107,13 @@ public class Member {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

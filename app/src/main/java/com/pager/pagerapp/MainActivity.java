@@ -1,5 +1,6 @@
 package com.pager.pagerapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -11,19 +12,24 @@ import android.view.MenuItem;
 
 import com.pager.pagerapp.adapters.ListTeamAdapter;
 import com.pager.pagerapp.bo.RolesBO;
+import com.pager.pagerapp.bo.SocketBO;
 import com.pager.pagerapp.bo.TeamBO;
 import com.pager.pagerapp.model.Member;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements ListTeamAdapter.OnItemClickListener, TeamBO.Callback {
+public class MainActivity extends AppCompatActivity implements ListTeamAdapter.OnItemClickListener, TeamBO.Callback, SocketBO.Callback, RolesBO.Callback {
 
     private RecyclerView recyclerView;
     private ListTeamAdapter adapter;
     private SearchView searchView;
     private MenuItem searchItem;
     private TeamBO teamBO;
+    private SocketBO socketBO;
+    private Map<String, String> roles;
 
 
     @Override
@@ -39,20 +45,30 @@ public class MainActivity extends AppCompatActivity implements ListTeamAdapter.O
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        adapter = new ListTeamAdapter(this, this);
+        recyclerView.setAdapter(adapter);
+
         teamBO = new TeamBO(this);
         teamBO.listTeam();
+
+        RolesBO rolesBO = new RolesBO();
+        rolesBO.listRoles(this);
+
+
+        socketBO = new SocketBO(this);
     }
 
     private void loadTeamList(List<Member> team) {
-
-        adapter = new ListTeamAdapter(this, team, this);
-        recyclerView.setAdapter(adapter);
-
+        adapter.setDataList(team);
     }
 
     @Override
     public void onItemClick(Member member) {
 
+        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+        member.setRoleName(roles.get("" + member.getRoleId()));
+        intent.putExtra("member", Parcels.wrap(member));
+        startActivity(intent);
     }
 
 
@@ -111,9 +127,50 @@ public class MainActivity extends AppCompatActivity implements ListTeamAdapter.O
         }
     }
 
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        socketBO.open();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        socketBO.close();
+    }
+
+    @Override
+    public void newMemberUpdate(final Member newMember) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.addMember(newMember);
+            }
+        });
+
+    }
+
+    @Override
+    public void statusUpdate(final String status, final String member) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.updateStatus(status, member);
+            }
+        });
+
+    }
+
     @Override
     public void listTeam(List<Member> team) {
         loadTeamList(team);
     }
 
+    @Override
+    public void getRoles(Map<String, String> roles) {
+        this.roles = roles;
+        adapter.updateRoles(roles);
+    }
 }
