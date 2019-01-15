@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    def versionPropsFile = file('version.properties')
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.pager.pagerapp"
@@ -9,6 +12,22 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        if (versionPropsFile.canRead()) {
+            Properties versionProps = new Properties()
+
+            versionProps.load(new FileInputStream(versionPropsFile))
+
+            def code = versionProps['VERSION_CODE'].toInteger()
+
+            versionProps['VERSION_CODE'] = code.toString()
+            versionProps.store(versionPropsFile.newWriter(), null)
+            setProperty("archivesBaseName", applicationId + "-v" + code )
+        } else {
+                throw new GradleException("Could not read version.properties!")
+            }
+
+
     }
     buildTypes {
         release {
