@@ -20,8 +20,6 @@ android {
 
             def code = versionProps['VERSION_CODE'].toInteger()
 
-            versionProps['VERSION_CODE'] = code.toString()
-            versionProps.store(versionPropsFile.newWriter(), null)
             setProperty("archivesBaseName", applicationId + "-v" + code )
         } else {
                 throw new GradleException("Could not read version.properties!")
