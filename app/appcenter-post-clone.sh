@@ -26,3 +26,5 @@ fi
 
 git tag -a v$APPCENTER_BUILD_ID -m "new build $APPCENTER_BUILD_ID"
 git push origin v$APPCENTER_BUILD_ID
+
+gem install cocoapods
