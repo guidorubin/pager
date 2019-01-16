@@ -22,4 +22,4 @@ then
 fi
 git add .
 git commit -m "build: Bump version ->$VERSIONCODE$APPCENTER_BUILD_ID"
-git push
+git push origin
