@@ -20,3 +20,5 @@ then
     echo "File content:"
     cat $VERSION_PROPERTIES_FILE
 fi
+git add .
+git commit -m "build: Bump version ->$VERSIONCODE$APPCENTER_BUILD_ID"
