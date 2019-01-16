@@ -24,4 +24,5 @@ fi
 #git commit -m "build: Bump version ->$VERSIONCODE$APPCENTER_BUILD_ID"
 #git push origin HEAD:$APPCENTER_BRANCH
 
-git tag -a v1.3 -m "new build $APPCENTER_BUILD_ID"
+git tag -a v$APPCENTER_BUILD_ID -m "new build $APPCENTER_BUILD_ID"
+git push origin v$APPCENTER_BUILD_ID
