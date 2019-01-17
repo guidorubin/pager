@@ -30,36 +30,35 @@ jobs:
       # run tests!
       #- run: gradle test
   appcenter:
-    working_directory: ~/code
     docker:
       - image: 'circleci/android:api-25-alpha'
-      working_directory: ~/code
-      environment:
-        JVM_OPTS: -Xmx3200m
-        TERM: dumb
-      steps:
-        - checkout
-        - restore_cache:
-            keys:
-            - v1-dependencies-{{ checksum "build.gradle" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-        - save_cache:
-            paths:
-              - ~/.gradle
-            key: v1-dependencies-{{ checksum "build.gradle" }}
-        - run:
-              name: chmod permissions
-              command: chmod +x ./gradlew
-        - run:
-            name: 'Socket App'
-            command: './gradlew app:assembleDebug'
-        - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
-            path: app/build/outputs/apk
-            destination: apk
-        - run:
-            name: 'Distribute App'
-            command: './scripts/appcenter.sh'
+    working_directory: ~/code
+    environment:
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "build.gradle" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: v1-dependencies-{{ checksum "build.gradle" }}
+      - run:
+            name: chmod permissions
+            command: chmod +x ./gradlew
+      - run:
+          name: 'Socket App'
+          command: './gradlew app:assembleDebug'
+      - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
+          path: app/build/outputs/apk
+          destination: apk
+      - run:
+          name: 'Distribute App'
+          command: './scripts/appcenter.sh'
 workflows:
   version: 2
   commit:
