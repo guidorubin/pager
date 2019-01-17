@@ -22,9 +22,9 @@ jobs:
 #            name: 'Download Dependencies'
 #            command: './gradlew androidDependencies'
 
-        - run:
-            name: 'Socket App'
-            command: './gradlew app:assembleDebug'
+      - run:
+          name: 'Socket App'
+          command: './gradlew app:assembleDebug'
       - save_cache:
           paths:
             - ~/.gradle
