@@ -18,9 +18,13 @@ jobs:
       - run:
             name: chmod permissions
             command: chmod +x ./gradlew
-      - run:
-            name: 'Download Dependencies'
-            command: './gradlew androidDependencies'
+#      - run:
+#            name: 'Download Dependencies'
+#            command: './gradlew androidDependencies'
+
+        - run:
+            name: 'Socket App'
+            command: './gradlew app:assembleDebug'
       - save_cache:
           paths:
             - ~/.gradle
