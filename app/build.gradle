@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.pager.pagerapp"
         minSdkVersion 19
@@ -14,6 +14,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "SERVER_URL", '"https://pager-team.herokuapp.com/"'
+            buildConfigField "String", "SOCKET_URL", '"wss://ios-hiring-backend.dokku.canillitapp.com"'
+
         }
 
         debug {
