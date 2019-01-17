@@ -30,6 +30,9 @@ jobs:
       - run:
           name: 'Socket App'
           command: './gradlew app:assembleDebug'
+      - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
+          path: app/build/reports
+          destination: reports
 
       # run tests!
       #- run: gradle test
