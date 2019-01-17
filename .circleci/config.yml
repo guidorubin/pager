@@ -57,8 +57,10 @@ jobs:
           path: app/build/outputs/apk
           destination: apk
       - run:
-          name: 'Distribute App'
+          name: 'Chmod Sh'
           command: chmod +x './scripts/appcenter.sh'
+      - run:
+          name: 'Distribute App'
           command: './scripts/appcenter.sh'
 workflows:
   version: 2
