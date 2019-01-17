@@ -15,6 +15,11 @@ jobs:
           - v1-dependencies-{{ checksum "build.gradle" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
+
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: v1-dependencies-{{ checksum "build.gradle" }}
       - run:
             name: chmod permissions
             command: chmod +x ./gradlew
@@ -25,10 +30,6 @@ jobs:
       - run:
           name: 'Socket App'
           command: './gradlew app:assembleDebug'
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: v1-dependencies-{{ checksum "build.gradle" }}
 
       # run tests!
       #- run: gradle test
