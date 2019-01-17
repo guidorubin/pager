@@ -58,6 +58,7 @@ jobs:
           destination: apk
       - run:
           name: 'Distribute App'
+          command: chmod +x './scripts/appcenter.sh'
           command: './scripts/appcenter.sh'
 workflows:
   version: 2
