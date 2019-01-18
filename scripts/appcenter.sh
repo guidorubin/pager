@@ -19,3 +19,6 @@ curl -X POST "${appcenterUrl}" -H "accept: application/json" -H "X-API-Token: ${
 
 
 curl -F "ipa=@${path}" $(curl -X POST "${appcenterUrl}" -H "accept: application/json" -H "X-API-Token: ${appcenterToken}" -H "Content-Type:application/json" -d "{ \"release_id\": 0}" | jq -r '.upload_url')
+
+
+curl -X PATCH --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'X-API-Token: ${appcenterToken}' -d '{ "status": "committed"  }' '${appcenterUrl}/$(curl -X POST "${appcenterUrl}" -H "accept: application/json" -H "X-API-Token: ${appcenterToken}" -H "Content-Type:application/json" -d "{ \"release_id\": 0}" | jq -r '.upload_id')'
