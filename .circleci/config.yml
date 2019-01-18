@@ -67,6 +67,8 @@ workflows:
   commit:
     jobs:
       - build
+  appcetner:
+    jobs:
       - appcenter
         filters:
           branches:
