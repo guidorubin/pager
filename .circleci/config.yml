@@ -57,11 +57,8 @@ jobs:
           path: app/build/outputs/apk
           destination: apk
       - run:
-          name: 'Chmod Sh'
-          command: chmod +x './scripts/appcenter.sh'
-      - run:
-          name: 'Distribute App'
-          command: './scripts/appcenter.sh'
+          name: 'Distribute app'
+          command: bundle exec fastlane test
 workflows:
   version: 2
   commit:
@@ -74,6 +71,7 @@ workflows:
             branches:
               only:
                 - master
+                - fastlane
 
 
 
