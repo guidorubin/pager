@@ -66,6 +66,11 @@ workflows:
   version: 2
   commit:
     jobs:
+      - build
       - appcenter
+        filters:
+          branches:
+            only:
+            - master
 
 
