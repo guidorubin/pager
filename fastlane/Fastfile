@@ -20,10 +20,10 @@ platform :android do
   lane :deploy do
     # app should be autocreated if not found
     appcenter_upload(
-      api_token: ${appcenter_token},
+      api_token: 57c5d832209fe8ee9808333ba71fd86e4cf8f6b4,
       owner_name: guido.rubin-pager.com,
       app_name: CircleCi,
-      apk: "./fastlane/app-release.apk"
+      apk: "app/build/outputs/apk/debug/app-debug.apk"
     )
   end
 
