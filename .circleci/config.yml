@@ -61,7 +61,7 @@ jobs:
           command: bundle install
       - run:
           name: 'Distribute app'
-          command: bundle exec fastlane test
+          command: bundle exec fastlane deploy
 workflows:
   version: 2
   commit:

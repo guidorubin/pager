@@ -17,7 +17,7 @@ default_platform(:android)
 
 platform :android do
 
-  lane :test_autocreation do
+  lane :deploy do
     # app should be autocreated if not found
     appcenter_upload(
       api_token: ${appcenter_token},
