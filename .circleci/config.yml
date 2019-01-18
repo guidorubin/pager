@@ -70,9 +70,9 @@ workflows:
   appcetner:
     jobs:
       - appcenter
-        filters:
-          branches:
-            only:
-              - master
+          filters:
+            branches:
+              only:
+                - master
 
 
