@@ -11,4 +11,4 @@ appcenterUrl="https://api.appcenter.ms/v0.1/apps/${appcenterAppOwner}/${appcente
 response=$(curl -X POST "${appcenterUrl}" -H "accept: application/json" -H "X-API-Token: ${appcenterToken}" -H "Content-Type:application/json" -d "{ \"release_id\": 0}")
 #uploadUrl=$(jq -r '.upload_url' ${response})
 
-cat ${response} | jq '.upload_url'
+cat "${response}" | jq '.upload_url'
