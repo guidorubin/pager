@@ -69,10 +69,11 @@ workflows:
       - build
   appcetner:
     jobs:
-      - appcenter
+      - appcenter:
           filters:
             branches:
               only:
                 - master
+
 
 
