@@ -22,11 +22,18 @@ jobs:
             name: chmod permissions
             command: chmod +x ./gradlew
       - run:
+          name: Bundle install
+          command: bundle install
+      - run:
+          name: 'Distribute app'
+          command: bundle exec fastlane deploy
+      - run:
           name: 'Socket App'
           command: './gradlew app:assembleDebug'
       - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: app/build/outputs/apk
           destination: apk
+
       # run tests!
       #- run: gradle test
   appcenter:
@@ -75,7 +82,6 @@ workflows:
             branches:
               only:
                 - master
-                - fastlane
 
 
 
