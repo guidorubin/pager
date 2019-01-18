@@ -57,9 +57,9 @@ jobs:
       - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: app/build/outputs/apk
           destination: apk
-      #- run:
-      #    name: Bundle install
-      #    command: bundle install
+      - run:
+          name: Bundle install
+          command: bundle install
       - run:
           name: 'Distribute app'
           command: bundle exec fastlane deploy
