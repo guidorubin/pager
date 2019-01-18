@@ -26,7 +26,7 @@ jobs:
           command: bundle install
       - run:
           name: 'Distribute app'
-          command: bundle exec fastlane deploy
+          command: bundle exec fastlane test
       - run:
           name: 'Socket App'
           command: './gradlew app:assembleDebug'
